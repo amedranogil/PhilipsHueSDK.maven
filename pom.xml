@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <!-- The Basics -->
+  <groupId>com.philips.lighting.hue</groupId>
+  <artifactId>sdk</artifactId>
+  <version>master</version>
+  <packaging>jar</packaging>
+  
+  <build>
+  <plugins>
+   <plugin>
+      <artifactId>maven-antrun-plugin</artifactId>
+      <version>1.8</version>
+      <executions>
+         <execution>
+            <phase>generate-resources</phase>
+            <configuration>
+               <tasks>
+                  <echo message="donwloading compiled" />
+				  <get src="https://github.com/PhilipsHue/PhilipsHueSDK-Java-MultiPlatform-Android/raw/${project.version}/JavaDesktopApp/libs/huelocalsdk.jar" dest="${project.build.directory}/huelocalsdk.jar" />
+                  <get src="https://github.com/PhilipsHue/PhilipsHueSDK-Java-MultiPlatform-Android/raw/${project.version}/JavaDesktopApp/libs/huesdkresources.jar" dest="${project.build.directory}/huesdkresources.jar" />
+                  <echo message="unzipping compiled" />
+                  <unjar src="${project.build.directory}/huelocalsdk.jar" dest="${project.build.outputDirectory}" />
+                  <unjar src="${project.build.directory}/huesdkresources.jar" dest="${project.build.outputDirectory}" />
+                  <echo message="downloading JavaDoc" />
+                  <get src="https://github.com/PhilipsHue/PhilipsHueSDK-Java-MultiPlatform-Android/raw/${project.version}/Documentation/Javadoc.zip" dest="${project.build.directory}/Javadoc.zip" />
+                  <echo message="unzipping JavaDoc" />
+                  <unzip src="${project.build.directory}/Javadoc.zip" dest="${project.build.directory}/apidocs" />
+               </tasks>
+            </configuration>
+            <goals>
+               <goal>run</goal>
+            </goals>
+         </execution>
+      </executions>
+   </plugin>
+   <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-javadoc-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>attach-javadocs</id>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+</plugins>
+  </build>
+</project>
