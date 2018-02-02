@@ -1,0 +1,3 @@
+[submodule "PhilipsHueSDK"]
+	path = PhilipsHueSDK
+	url = https://github.com/PhilipsHue/PhilipsHueSDK-Java-MultiPlatform-Android.git
